@@ -33,7 +33,7 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
-    Map<String, String> headers = {'Authorization': accToken as String};
+    Map<String, String> headers = {'Authorization': 'Bearer $accToken'};
 
     List<PlayerModel> playerList = [];
     final url = Uri.parse('$baseUrl/players');
@@ -56,7 +56,7 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
-    Map<String, String> headers = {'Authorization': accToken as String};
+    Map<String, String> headers = {'Authorization': 'Bearer $accToken'};
 
     final url = Uri.parse('$baseUrl/player/$playerId');
     final response = await http.get(url, headers: headers);
@@ -74,7 +74,7 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
-    Map<String, String> headers = {'Authorization': accToken as String};
+    Map<String, String> headers = {'Authorization': 'Bearer $accToken'};
 
     List<RankModel> rankList = [];
     final url = Uri.parse('$baseUrl/ranking');
