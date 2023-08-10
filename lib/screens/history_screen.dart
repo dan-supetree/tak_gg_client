@@ -10,8 +10,14 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Placeholder(),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Match History'),
+        ),
+        body: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              children: const [Text('Match History')],
+            )));
   }
 }

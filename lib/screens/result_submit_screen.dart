@@ -10,8 +10,14 @@ class ResultSubmitScreen extends StatefulWidget {
 class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Placeholder(),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Submit Game Result'),
+        ),
+        body: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              children: const [Text('Submit')],
+            )));
   }
 }
