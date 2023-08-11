@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tak_gg/routes/slide_route.dart';
 import 'package:tak_gg/screens/history_screen.dart';
+import 'package:tak_gg/screens/profile_screen.dart';
 import 'package:tak_gg/screens/rank_screen.dart';
 import 'package:tak_gg/screens/result_submit_screen.dart';
 
@@ -20,7 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
             Ink(
               decoration: const ShapeDecoration(shape: CircleBorder()),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      SlideRoute(
+                          page: const ProfileScreen(), direction: 'left'));
+                },
                 icon: const Icon(Icons.account_circle),
                 color: Colors.black,
                 iconSize: 40,
@@ -31,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Padding(
             padding: const EdgeInsets.all(32.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -58,8 +65,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   page: const ResultSubmitScreen(),
                                   direction: 'left'));
                         },
-                        child: const Text('Submit Game Result')),
-                    const SizedBox(height: 8),
+                        child: const Text('Submit Game Result',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ))),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50),
@@ -70,8 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               SlideRoute(
                                   page: const RankScreen(), direction: 'left'));
                         },
-                        child: const Text('Ranking')),
-                    const SizedBox(height: 8),
+                        child: const Text('Ranking',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ))),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50),
@@ -83,7 +96,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   page: const HistoryScreen(),
                                   direction: 'left'));
                         },
-                        child: const Text('Match History')),
+                        child: const Text('Match History',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ))),
                   ],
                 )
               ],
