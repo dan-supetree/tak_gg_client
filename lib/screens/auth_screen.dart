@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tak_gg/screens/home_screen.dart';
 import 'package:tak_gg/services/api_service.dart';
+import 'package:tak_gg/states/UserController.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -14,6 +16,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.put(UserController());
+
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -56,9 +60,21 @@ class _AuthScreenState extends State<AuthScreen> {
                     ? null
                     : () async {
                         try {
-                          await ApiService.postAuthRequest(token);
+                          final player =
+                              await ApiService.postAuthRequest(token);
 
                           if (!mounted) return;
+
+                          userController.updateUser({
+                            "playerId": player.playerId,
+                            "profileImage": player.profileImage,
+                            "displayName": player.displayName,
+                            "style": player.style,
+                            "racket": player.racket,
+                            "rubberList": player.rubberList,
+                            "ratingPoint": player.ratingPoint,
+                          });
+
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
