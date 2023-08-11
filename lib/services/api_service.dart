@@ -5,9 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tak_gg/models/player_model.dart';
 import 'package:tak_gg/models/rank_model.dart';
 
+final Map<String, String> commonHeaders = {
+  'Content-Type': 'application/json',
+};
+
 class ApiService {
   static const baseUrl =
-      "https://xnvgk6ye12.execute-api.ap-northeast-2.amazonaws.com/dev/v1/";
+      "https://xnvgk6ye12.execute-api.ap-northeast-2.amazonaws.com/dev/v1";
 
   static Future<PlayerModel> postAuthRequest(String token) async {
     final url = Uri.parse('$baseUrl/auth');
@@ -33,7 +37,8 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
-    Map<String, String> headers = {'Authorization': 'Bearer $accToken'};
+    Map<String, String> headers = commonHeaders;
+    headers['Authorization'] = 'Bearer $accToken';
 
     List<PlayerModel> playerList = [];
     final url = Uri.parse('$baseUrl/players');
@@ -56,9 +61,10 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
-    Map<String, String> headers = {'Authorization': 'Bearer $accToken'};
+    Map<String, String> headers = commonHeaders;
+    headers['Authorization'] = 'Bearer $accToken';
 
-    final url = Uri.parse('$baseUrl/player/$playerId');
+    final url = Uri.parse('$baseUrl/players/$playerId');
     final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
@@ -74,7 +80,8 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
-    Map<String, String> headers = {'Authorization': 'Bearer $accToken'};
+    Map<String, String> headers = commonHeaders;
+    headers['Authorization'] = 'Bearer $accToken';
 
     List<RankModel> rankList = [];
     final url = Uri.parse('$baseUrl/ranking');
