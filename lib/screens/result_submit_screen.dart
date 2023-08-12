@@ -12,12 +12,32 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Submit Game Result'),
+          title: const Text(
+            'Submit Game Result',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.blue,
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
-        body: const Padding(
-            padding: EdgeInsets.all(32.0),
+        body: Padding(
+            padding: const EdgeInsets.all(32.0),
             child: Column(
-              children: [Text('Submit')],
-            )));
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  onPressed: null,
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(
+                      fontSize: 20,
+                    )
+                  )
+                ),
+              ],
+            )
+        )
+      );
   }
 }
