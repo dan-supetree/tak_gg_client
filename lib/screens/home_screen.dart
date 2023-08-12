@@ -39,9 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Image(
                       image: AssetImage('assets/takgg_icon_rdbox.png'),
                       width: 200,

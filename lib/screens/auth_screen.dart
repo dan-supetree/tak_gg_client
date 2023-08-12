@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tak_gg/screens/home_screen.dart';
 import 'package:tak_gg/services/api_service.dart';
-import 'package:tak_gg/states/UserController.dart';
+import 'package:tak_gg/states/user_controller.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});

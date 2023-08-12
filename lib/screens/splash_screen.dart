@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:tak_gg/screens/auth_screen.dart';
 import 'package:tak_gg/screens/home_screen.dart';
 import 'package:tak_gg/services/api_service.dart';
-import 'package:tak_gg/states/UserController.dart';
+import 'package:tak_gg/states/user_controller.dart';
 import 'package:tak_gg/utils/auth.dart';
 
 class SplashScreen extends StatefulWidget {

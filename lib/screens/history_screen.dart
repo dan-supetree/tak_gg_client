@@ -14,10 +14,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
         appBar: AppBar(
           title: const Text('Match History'),
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(32.0),
+        body: const Padding(
+            padding: EdgeInsets.all(32.0),
             child: Column(
-              children: const [Text('Match History')],
+              children: [Text('Match History')],
             )));
   }
 }

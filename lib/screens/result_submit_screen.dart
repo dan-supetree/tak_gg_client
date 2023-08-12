@@ -14,10 +14,10 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
         appBar: AppBar(
           title: const Text('Submit Game Result'),
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(32.0),
+        body: const Padding(
+            padding: EdgeInsets.all(32.0),
             child: Column(
-              children: const [Text('Submit')],
+              children: [Text('Submit')],
             )));
   }
 }
