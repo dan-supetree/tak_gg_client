@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tak_gg/states/UserController.dart';
 import 'package:tak_gg/widgets/rank.dart';
+import 'package:tak_gg/widgets/top_rank.dart';
 
 class RankScreen extends StatefulWidget {
   const RankScreen({super.key});
@@ -40,54 +41,24 @@ class _RankScreenState extends State<RankScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: NetworkImage(
-                                      userController.profileImage)),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Container(
-                                color: Colors.amberAccent,
-                                width: 100,
-                                height: 100,
-                              )
-                            ],
+                          TopRank(
+                            rank: 2,
+                            name: 'nickName',
+                            profileImage: userController.profileImage,
+                            points: 1234
                           ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: NetworkImage(
-                                      userController.profileImage)),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Container(
-                                color: Colors.redAccent,
-                                width: 100,
-                                height: 140,
-                              )
-                            ],
+                          TopRank(
+                            rank: 1,
+                            name: 'nickName',
+                            profileImage: userController.profileImage,
+                            points: 1234
                           ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: NetworkImage(
-                                      userController.profileImage)),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Container(
-                                color: const Color.fromRGBO(152, 238, 204, 1),
-                                width: 100,
-                                height: 60,
-                              )
-                            ],
-                          )
+                          TopRank(
+                            rank: 3,
+                            name: 'nickName',
+                            profileImage: userController.profileImage,
+                            points: 1234
+                          ),
                         ],
                       ),
                     ],
