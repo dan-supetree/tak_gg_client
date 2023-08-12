@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tak_gg/states/UserController.dart';
+import 'package:tak_gg/states/user_controller.dart';
+import 'package:tak_gg/services/api_service.dart';
+import 'package:tak_gg/models/rank_model.dart';
 import 'package:tak_gg/widgets/rank.dart';
 import 'package:tak_gg/widgets/top_rank.dart';
 
@@ -12,6 +14,8 @@ class RankScreen extends StatefulWidget {
 }
 
 class _RankScreenState extends State<RankScreen> {
+  final Future<List<RankModel>> ranks = ApiService.getRankList();
+
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.put(UserController());
@@ -25,126 +29,123 @@ class _RankScreenState extends State<RankScreen> {
           backgroundColor: Colors.blue,
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-        body: Container(
-          color: Colors.blue,
-          child: Column(
-            children: [
-              Flexible(
-                flex: 0,
-                child: Container(
-                  color: Colors.blue,
-                  height: 300,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TopRank(
-                            rank: 2,
-                            name: 'nickName',
-                            profileImage: userController.profileImage,
-                            points: 1234
-                          ),
-                          TopRank(
-                            rank: 1,
-                            name: 'nickName',
-                            profileImage: userController.profileImage,
-                            points: 1234
-                          ),
-                          TopRank(
-                            rank: 3,
-                            name: 'nickName',
-                            profileImage: userController.profileImage,
-                            points: 1234
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30)),
-                  child: Container(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 40, bottom: 60),
-                      child: SingleChildScrollView(
-                        child:Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              Rank(
-                                userController: userController,
-                                rank: 4,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                              Rank(
-                                userController: userController,
-                                rank: 5,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                              Rank(
-                                userController: userController,
-                                rank: 6,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                              Rank(
-                                userController: userController,
-                                rank:7,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                              Rank(
-                                userController: userController,
-                                rank: 8,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                              Rank(
-                                userController: userController,
-                                rank: 9,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                              Rank(
-                                userController: userController,
-                                rank: 10,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                              Rank(
-                                userController: userController,
-                                rank: 11,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                              Rank(
-                                userController: userController,
-                                rank: 12,
-                                name: 'nickName',
-                                points: 1234.5,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      ),
+        body:  FutureBuilder(
+          future: ranks,
+          builder: (context,snapshot) {
+            if(snapshot.hasData ) {
+              final data = snapshot.data!;
+              
+              if(data.isEmpty) return const Text('Empty');
+              
+              final topRanks = data.sublist(0,3);
+              final etcRanks = data.sublist(3);
+
+              return Container(
+                color: Colors.blue,
+                child: Column(
+                children: [
+                  Flexible(
+                    flex: 0,
+                    child: Container(
+                    color: Colors.blue,
+                    height: 300,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TopRankList(topRanks: topRanks),
+                      ],
                     ),
                   ),
                 ),
-              )
-            ],
-          ),
-        ));
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30)),
+                    child: Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 40, bottom: 60),
+                        child: SingleChildScrollView(
+                          child:Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              RankList(etcRanks: etcRanks, userController: userController),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+},
+      )
+    );
   }
 }
+
+class TopRankList extends StatelessWidget {
+  const TopRankList({
+    super.key,
+    required this.topRanks,
+  });
+
+  final List<RankModel> topRanks;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TopRank(
+          rank: topRanks[1].rank,
+          name: topRanks[1].displayName,
+          profileImage: topRanks[1].profileImage,
+          points: topRanks[1].ratingPoint,
+        ),
+        TopRank(
+          rank: topRanks[0].rank,
+          name: topRanks[0].displayName,
+          profileImage: topRanks[0].profileImage,
+          points: topRanks[0].ratingPoint,
+        ),
+        TopRank(
+          rank: topRanks[2].rank,
+          name: topRanks[2].displayName,
+          profileImage: topRanks[2].profileImage,
+          points: topRanks[2].ratingPoint,
+        ),
+      ],
+    );
+  }
+}
+
+class RankList extends StatelessWidget {
+  const RankList({
+    super.key,
+    required this.etcRanks,
+    required this.userController,
+  });
+
+  final List<RankModel> etcRanks;
+  final UserController userController;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true, 
+       primary: false,
+       itemCount: etcRanks.length,
+       itemBuilder: (context,index) => Rank(userController: userController, rank: etcRanks[index].rank, name:  etcRanks[index].displayName, points:  etcRanks[index].ratingPoint),
+    );
+  }
+}
+

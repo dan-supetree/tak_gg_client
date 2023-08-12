@@ -80,19 +80,21 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
+    List<RankModel> rankList = [];
     Map<String, String> headers = commonHeaders;
     headers['Authorization'] = 'Bearer $accToken';
 
-    List<RankModel> rankList = [];
     final url = Uri.parse('$baseUrl/ranking');
     final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(utf8.decode(response.bodyBytes))['data'];
-      final List<dynamic> ranks = data['rankList'];
+      final data = jsonDecode(response.body);
+      final List<dynamic> ranks = data['data'];
 
       for (var rank in ranks) {
-        rankList.add(RankModel.fromJSON(rank));
+        final RankModel ranker = RankModel.fromJSON(rank);
+        
+        rankList.add(ranker);
       }
 
       return rankList;
