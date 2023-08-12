@@ -34,7 +34,7 @@ class Rank extends StatelessWidget {
                 width: 12,
               ),
               CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   backgroundImage: NetworkImage(userController.profileImage)),
               const SizedBox(
                 width: 12,
