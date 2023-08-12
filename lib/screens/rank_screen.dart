@@ -30,10 +30,10 @@ class _RankScreenState extends State<RankScreen> {
           child: Column(
             children: [
               Flexible(
-                flex: 1,
+                flex: 0,
                 child: Container(
-                  color: Colors.transparent,
-                  height: 400,
+                  color: Colors.blue,
+                  height: 300,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -65,8 +65,7 @@ class _RankScreenState extends State<RankScreen> {
                   ),
                 ),
               ),
-              Flexible(
-                flex: 2,
+              Expanded(
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
@@ -74,8 +73,9 @@ class _RankScreenState extends State<RankScreen> {
                   child: Container(
                     color: Colors.white,
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 32, bottom: 40),
-                      child: Column(
+                      padding: const EdgeInsets.only(top: 40, bottom: 60),
+                      child: SingleChildScrollView(
+                        child:Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
@@ -92,9 +92,52 @@ class _RankScreenState extends State<RankScreen> {
                                 name: 'nickName',
                                 points: 1234.5,
                               ),
+                              Rank(
+                                userController: userController,
+                                rank: 6,
+                                name: 'nickName',
+                                points: 1234.5,
+                              ),
+                              Rank(
+                                userController: userController,
+                                rank:7,
+                                name: 'nickName',
+                                points: 1234.5,
+                              ),
+                              Rank(
+                                userController: userController,
+                                rank: 8,
+                                name: 'nickName',
+                                points: 1234.5,
+                              ),
+                              Rank(
+                                userController: userController,
+                                rank: 9,
+                                name: 'nickName',
+                                points: 1234.5,
+                              ),
+                              Rank(
+                                userController: userController,
+                                rank: 10,
+                                name: 'nickName',
+                                points: 1234.5,
+                              ),
+                              Rank(
+                                userController: userController,
+                                rank: 11,
+                                name: 'nickName',
+                                points: 1234.5,
+                              ),
+                              Rank(
+                                userController: userController,
+                                rank: 12,
+                                name: 'nickName',
+                                points: 1234.5,
+                              ),
                             ],
                           ),
                         ],
+                      ),
                       ),
                     ),
                   ),
