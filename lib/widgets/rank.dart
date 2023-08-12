@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:tak_gg/states/UserController.dart';
+import 'package:tak_gg/states/user_controller.dart';
 
 class Rank extends StatelessWidget {
   const Rank({
@@ -12,7 +11,7 @@ class Rank extends StatelessWidget {
   });
 
   final UserController userController;
-  final int rank;
+  final String rank;
   final String name;
   final num points;
 
@@ -26,7 +25,7 @@ class Rank extends StatelessWidget {
           Row(
             children: [
               Text(
-                '$rank',
+                rank,
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),

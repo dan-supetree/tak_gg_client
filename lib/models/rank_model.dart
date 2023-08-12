@@ -1,9 +1,9 @@
 class RankModel {
-  final int rank;
+  final String rank;
   final String playerId;
   final String displayName;
   final String profileImage;
-  final num ratingPoint;
+  final int ratingPoint;
 
   RankModel.fromJSON(Map<String, dynamic> json)
       : rank = json['rank'],
