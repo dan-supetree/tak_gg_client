@@ -110,11 +110,9 @@ class ApiService {
     headers['Authorization'] = 'Bearer $accToken';
   
     final url = Uri.parse('$baseUrl/games');
-    final response = await http.post(url, headers: headers,body: {
-      "resultList": {
-        "resultList": resultList
-      }
-    });
+    final response = await http.post(url, headers: headers,body: jsonEncode({
+      "resultList": resultList
+    }));
 
     if(response.statusCode == 200) {
       return true;
