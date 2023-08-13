@@ -68,10 +68,12 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
           content: const Text(
             'Submit Success',
             style: TextStyle(
-              fontSize: 18.0
+              fontSize: 18.0,
+              color: Colors.white
             ),
           ),
           behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.green,
           margin:  EdgeInsets.only(
             left: 10,
             right: 10,
