@@ -38,6 +38,7 @@ dependencies:
   shared_preferences: ^2.2.0
   get: ^4.6.5
   flutter_svg: ^2.0.5
+  flutter_material_pickers: ^3.6.0
 
 dev_dependencies:
   flutter_test:
