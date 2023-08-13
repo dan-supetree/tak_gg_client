@@ -62,7 +62,6 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
 
   @override
   void initState()  {
-    // TODO: implement initState
     super.initState();
     fetchUserList();
   }
@@ -93,7 +92,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                           showMaterialNumberPicker(
                             context: context, 
                             minNumber: 0, 
-                            maxNumber: 50, 
+                            maxNumber: 21, 
                             title: 'Pick the Game Score',
                             selectedNumber: player1Score,
                             onChanged: (value) {
@@ -129,7 +128,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                           showMaterialNumberPicker(
                             context: context, 
                             minNumber: 0, 
-                            maxNumber: 50, 
+                            maxNumber: 21, 
                             title: 'Pick the Game Score',
                             selectedNumber: player2Score,
                             onChanged: (value) {
