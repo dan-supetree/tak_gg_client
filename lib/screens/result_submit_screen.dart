@@ -37,7 +37,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
     });
   }
 
-  void fetchUserList()async {
+  void fetchUserList() async {
      final List<PlayerModel> data = await ApiService.getPlayers();
      data.removeWhere((item) => item.displayName == userController.displayName);
      setState(() {
@@ -45,19 +45,27 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
      });
   }
 
-  void submitResult() {
+  void submitResult() async {
     if(selected == null) return;
 
-    final data = {
-      'resultList': [{
+    final data = [
+      {
         'playerId': userController.playerId,
         'score': player1Score,
-      },{
+      },
+      {
         'playerId': selected?.playerId,
         'score': player2Score,
-      }]
-    };
-    print(data);
+      }
+    ];
+    final result = await ApiService.postGameResult(data);
+
+    if(result == true) {
+      setState(() {
+        player1Score = 0;
+        player2Score = 0;
+      });
+    }
   }
 
   @override
