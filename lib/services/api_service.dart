@@ -46,7 +46,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes))['data'];
-      final List<dynamic> players = data['players'];
+      final List<dynamic> players = data;
 
       for (var player in players) {
         playerList.add(PlayerModel.fromJSON(player));
@@ -68,7 +68,7 @@ class ApiService {
     final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(utf8.decode(response.bodyBytes))['data'];
+      final data = jsonDecode(response.body)['data'];
       final player = PlayerModel.fromJSON(data);
       return player;
     }
