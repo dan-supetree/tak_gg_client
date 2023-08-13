@@ -15,7 +15,6 @@ class UserController extends GetxController {
     playerId = data['playerId'];
     displayName = data['displayName'];
     profileImage = data['profileImage'];
-    style = data['style'];
     racket = data['racket'];
     rubberList = data['rubberList'];
     ratingPoint = data['ratingPoint'];
