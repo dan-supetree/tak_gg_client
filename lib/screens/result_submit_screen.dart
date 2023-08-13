@@ -39,6 +39,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
 
   void fetchUserList()async {
      final List<PlayerModel> data = await ApiService.getPlayers();
+     data.removeWhere((item) => item.displayName == userController.displayName);
      setState(() {
        users = data;
      });
@@ -113,13 +114,14 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                         ),
                         const SizedBox(height: 12),
                          ElevatedButton(onPressed: null,child: Text(userController.displayName,style: const TextStyle(
-                            fontSize:24,
+                            fontSize:20,
                             fontWeight: FontWeight.w400,
                             color: Colors.black
                           )),
                         )
                       ],
                     ),
+                    const SizedBox(width: 12),
                      Column(
                       children: [
                         InkWell(
@@ -143,11 +145,11 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                             fontWeight: FontWeight.w700
                           )),
                         ),
-                        const SizedBox(height: 12),
-                         ElevatedButton(onPressed: selectPlayer ,child: const Text('Player',style: TextStyle(
-                            fontSize:24,
+                         const SizedBox(height: 12),
+                         ElevatedButton(onPressed: selectPlayer ,child:  Text(selected != null ? selected?.displayName ?? '' :'Player',style: const TextStyle(
+                            fontSize:20,
                             fontWeight: FontWeight.w400,
-                            color: Colors.black,
+                            color: Colors.white,
                           )),
                         )
                       ],

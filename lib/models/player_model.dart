@@ -13,4 +13,7 @@ class PlayerModel {
         racket = json['racket'],
         rubberList = json['rubberList'],
         ratingPoint = json['ratingPoint'] ?? 0;
+
+  @override
+  String toString() => displayName;
 }
