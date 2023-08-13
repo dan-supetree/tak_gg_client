@@ -35,7 +35,6 @@ class _SplashScreenState extends State<SplashScreen> {
             "playerId": player.playerId,
             "profileImage": player.profileImage,
             "displayName": player.displayName,
-            "style": player.style,
             "racket": player.racket,
             "rubberList": player.rubberList,
             "ratingPoint": player.ratingPoint,
