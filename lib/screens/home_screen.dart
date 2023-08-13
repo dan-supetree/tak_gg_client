@@ -23,9 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: IconButton(
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      SlideRoute(
-                          page: const ProfileScreen(), direction: 'left'));
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfileScreen(),fullscreenDialog: true)
+                  );
                 },
                 icon: const Icon(Icons.account_circle),
                 color: Colors.black,
