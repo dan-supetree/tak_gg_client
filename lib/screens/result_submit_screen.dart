@@ -59,11 +59,25 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
       }
     ];
     final result = await ApiService.postGameResult(data);
-
+   
     if(result == true) {
       setState(() {
         player1Score = 0;
         player2Score = 0;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text(
+            'Submit Success',
+            style: TextStyle(
+              fontSize: 18.0
+            ),
+          ),
+          behavior: SnackBarBehavior.floating,
+          margin:  EdgeInsets.only(
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).size.height - 180,
+          ),
+        ));
       });
     }
   }
