@@ -13,25 +13,57 @@ class ResultSubmitScreen extends StatefulWidget {
 }
 
 class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
-   final Future<List<PlayerModel>> players = ApiService.getPlayers();
+  
 
   int player1Score = 0;
   int player2Score = 0;
+  PlayerModel? selected;
+  List<PlayerModel> users = [];
   final UserController userController = Get.put(UserController());
-  //Map<String,dynamic>? selectedUser;
+  
 
   bool isDisabled() {
-    if(player1Score < 11 && player2Score < 11) return true;
+    if((player1Score < 11 && player2Score < 11) || selected == null) return true;
 
     return false;
   }
 
-  void selectPlayer()async {
-    print(players);
+  void selectPlayer() {
+    showMaterialScrollPicker(context: context, items: users, selectedItem: selected,onChanged: (value) {      
+      final user = users.firstWhere((item) => item.displayName == value?.displayName);
+      setState(() {
+        selected = user;
+      });
+    });
+  }
+
+  void fetchUserList()async {
+     final List<PlayerModel> data = await ApiService.getPlayers();
+     setState(() {
+       users = data;
+     });
   }
 
   void submitResult() {
-    print('submit');
+    if(selected == null) return;
+
+    final data = {
+      'resultList': [{
+        'playerId': userController.playerId,
+        'score': player1Score,
+      },{
+        'playerId': selected?.playerId,
+        'score': player2Score,
+      }]
+    };
+    print(data);
+  }
+
+  @override
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+    fetchUserList();
   }
 
   @override
