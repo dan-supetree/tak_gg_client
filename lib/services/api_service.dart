@@ -32,7 +32,6 @@ class ApiService {
     throw Error();
   }
 
-// 이하 api accessToken 필요
   static Future<List<PlayerModel>> getPlayers() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
@@ -101,5 +100,26 @@ class ApiService {
     }
 
     throw Error();
+  }
+
+  static Future<bool> postGameResult(List<Map<String,dynamic>>resultList) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accToken = prefs.getString('accessToken');
+
+    Map<String, String> headers = commonHeaders;
+    headers['Authorization'] = 'Bearer $accToken';
+  
+    final url = Uri.parse('$baseUrl/games');
+    final response = await http.post(url, headers: headers,body: {
+      "resultList": {
+        "resultList": resultList
+      }
+    });
+
+    if(response.statusCode == 200) {
+      return true;
+    }
+
+   return false;
   }
 }
