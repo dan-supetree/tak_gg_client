@@ -23,9 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: IconButton(
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ProfileScreen(),fullscreenDialog: true)
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfileScreen(),
+                          fullscreenDialog: true));
                 },
                 icon: const Icon(Icons.account_circle),
                 color: Colors.black,
@@ -39,9 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Image(
                       image: AssetImage('assets/takgg_icon_rdbox.png'),
                       width: 200,

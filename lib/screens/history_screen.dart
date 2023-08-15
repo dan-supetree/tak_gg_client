@@ -19,10 +19,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
           backgroundColor: Colors.blue,
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-        body: const Padding(
-            padding: EdgeInsets.all(32.0),
+        body: Padding(
+            padding: const EdgeInsets.all(32.0),
             child: Column(
-              children: [Text('Match History')],
+              children: const [Text('Match History')],
             )));
   }
 }

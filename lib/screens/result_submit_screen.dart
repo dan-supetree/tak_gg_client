@@ -13,40 +13,44 @@ class ResultSubmitScreen extends StatefulWidget {
 }
 
 class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
-  
-
   int player1Score = 0;
   int player2Score = 0;
   PlayerModel? selected;
   List<PlayerModel> users = [];
   final UserController userController = Get.put(UserController());
-  
 
   bool isDisabled() {
-    if((player1Score < 11 && player2Score < 11) || selected == null) return true;
+    if ((player1Score < 11 && player2Score < 11) || selected == null) {
+      return true;
+    }
 
     return false;
   }
 
   void selectPlayer() {
-    showMaterialScrollPicker(context: context, items: users, selectedItem: selected,onChanged: (value) {      
-      final user = users.firstWhere((item) => item.displayName == value?.displayName);
-      setState(() {
-        selected = user;
-      });
-    });
+    showMaterialScrollPicker(
+        context: context,
+        items: users,
+        selectedItem: selected,
+        onChanged: (value) {
+          final user = users
+              .firstWhere((item) => item.displayName == value?.displayName);
+          setState(() {
+            selected = user;
+          });
+        });
   }
 
   void fetchUserList() async {
-     final List<PlayerModel> data = await ApiService.getPlayers();
-     data.removeWhere((item) => item.displayName == userController.displayName);
-     setState(() {
-       users = data;
-     });
+    final List<PlayerModel> data = await ApiService.getPlayers();
+    data.removeWhere((item) => item.displayName == userController.displayName);
+    setState(() {
+      users = data;
+    });
   }
 
   void submitResult() async {
-    if(selected == null) return;
+    if (selected == null) return;
 
     final data = [
       {
@@ -59,22 +63,19 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
       }
     ];
     final result = await ApiService.postGameResult(data);
-   
-    if(result == true) {
+
+    if (result == true) {
       setState(() {
         player1Score = 0;
         player2Score = 0;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: const Text(
             'Submit Success',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white
-            ),
+            style: TextStyle(fontSize: 18.0, color: Colors.white),
           ),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.green,
-          margin:  EdgeInsets.only(
+          margin: EdgeInsets.only(
             left: 10,
             right: 10,
             bottom: MediaQuery.of(context).size.height - 180,
@@ -85,7 +86,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
   }
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     fetchUserList();
   }
@@ -106,74 +107,81 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
                         InkWell(
-                         onTap: () {
-                          showMaterialNumberPicker(
-                            context: context, 
-                            minNumber: 0, 
-                            maxNumber: 21, 
-                            title: 'Pick the Game Score',
-                            selectedNumber: player1Score,
-                            onChanged: (value) {
-                              setState(() {
-                                player1Score = value;
-                              });
-                            },
-                            cancellable: false,
-                          );
-                         },
+                          onTap: () {
+                            showMaterialNumberPicker(
+                              context: context,
+                              minNumber: 0,
+                              maxNumber: 21,
+                              title: 'Pick the Game Score',
+                              selectedNumber: player1Score,
+                              onChanged: (value) {
+                                setState(() {
+                                  player1Score = value;
+                                });
+                              },
+                              cancellable: false,
+                            );
+                          },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(player1Score.toString().padLeft(2,'0'),style: const TextStyle(
-                              fontSize: 100,
-                              fontWeight: FontWeight.w700
-                            )),
+                            child: Text(player1Score.toString().padLeft(2, '0'),
+                                style: const TextStyle(
+                                    fontSize: 100,
+                                    fontWeight: FontWeight.w700)),
                           ),
                         ),
                         const SizedBox(height: 12),
-                         ElevatedButton(onPressed: null,child: Text(userController.displayName,style: const TextStyle(
-                            fontSize:20,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black
-                          )),
+                        ElevatedButton(
+                          onPressed: null,
+                          child: Text(userController.displayName,
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black)),
                         )
                       ],
                     ),
                     const SizedBox(width: 12),
-                     Column(
+                    Column(
                       children: [
                         InkWell(
                           onTap: () {
-                          showMaterialNumberPicker(
-                            context: context, 
-                            minNumber: 0, 
-                            maxNumber: 21, 
-                            title: 'Pick the Game Score',
-                            selectedNumber: player2Score,
-                            onChanged: (value) {
-                              setState(() {
-                                player2Score = value;
-                              });
-                            },
-                            cancellable: false,
-                          );
-                         },
-                          child: Text(player2Score.toString().padLeft(2,'0'),style: const TextStyle(
-                            fontSize: 100,
-                            fontWeight: FontWeight.w700
-                          )),
+                            showMaterialNumberPicker(
+                              context: context,
+                              minNumber: 0,
+                              maxNumber: 21,
+                              title: 'Pick the Game Score',
+                              selectedNumber: player2Score,
+                              onChanged: (value) {
+                                setState(() {
+                                  player2Score = value;
+                                });
+                              },
+                              cancellable: false,
+                            );
+                          },
+                          child: Text(player2Score.toString().padLeft(2, '0'),
+                              style: const TextStyle(
+                                  fontSize: 100, fontWeight: FontWeight.w700)),
                         ),
-                         const SizedBox(height: 12),
-                         ElevatedButton(onPressed: selectPlayer ,child:  Text(selected != null ? selected?.displayName ?? '' :'Player',style: const TextStyle(
-                            fontSize:20,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                          )),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          onPressed: selectPlayer,
+                          child: Text(
+                              selected != null
+                                  ? selected?.displayName ?? ''
+                                  : 'Player',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              )),
                         )
                       ],
                     )
@@ -181,20 +189,15 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                  ),
-                  onPressed: isDisabled() ? null:submitResult,
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(
-                      fontSize: 20,
-                    )
-                  )
-                ),
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    onPressed: isDisabled() ? null : submitResult,
+                    child: const Text('Submit',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ))),
               ],
-            )
-        )
-      );
+            )));
   }
 }
