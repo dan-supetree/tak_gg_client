@@ -8,11 +8,13 @@ class Rank extends StatelessWidget {
     required this.rank,
     required this.name,
     required this.points,
+    required this.profileImage,
   });
 
   final UserController userController;
   final String rank;
   final String name;
+  final String profileImage;
   final num points;
 
   @override
@@ -33,8 +35,7 @@ class Rank extends StatelessWidget {
                 width: 12,
               ),
               CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(userController.profileImage)),
+                  radius: 20, backgroundImage: NetworkImage(profileImage)),
               const SizedBox(
                 width: 12,
               ),
