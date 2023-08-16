@@ -39,12 +39,18 @@ class _SplashScreenState extends State<SplashScreen> {
             "rubberList": player.rubberList,
             "ratingPoint": player.ratingPoint,
           });
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
+                  fullscreenDialog: true));
         }).catchError((e) {
           resetSession();
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const AuthScreen()));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const AuthScreen(),
+                  fullscreenDialog: true));
         });
       } else {
         Navigator.pushReplacement(context,
