@@ -17,23 +17,31 @@ class TopRank extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(radius: 30, backgroundImage: NetworkImage(profileImage)),
-        Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Column(
-              children: [
-                Text(name,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                    )),
-                Text('$points.LP',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    )),
-              ],
-            )),
+        Transform.translate(
+          offset: const Offset(0, 8),
+          child: Column(
+            children: [
+              CircleAvatar(
+                  radius: 30, backgroundImage: NetworkImage(profileImage)),
+              Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Column(
+                    children: [
+                      Text(name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                          )),
+                      Text('$points.LP',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          )),
+                    ],
+                  )),
+            ],
+          ),
+        ),
         Column(
           children: [
             Transform(
