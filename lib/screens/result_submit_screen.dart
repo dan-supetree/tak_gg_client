@@ -141,7 +141,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                           onPressed: null,
                           child: Text(userController.displayName,
                               style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black)),
                         )
@@ -178,7 +178,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                                   ? selected?.displayName ?? ''
                                   : 'Player',
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white,
                               )),
