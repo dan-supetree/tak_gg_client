@@ -14,6 +14,7 @@ class GamePlayer {
 class GameModel {
   final int gameId;
   final String status;
+  final bool isWinner;
   final int ratingTransition;
   final GamePlayer winner;
   final GamePlayer loser;
@@ -22,6 +23,7 @@ class GameModel {
       : gameId = json['gameId'],
         status = json['status'],
         ratingTransition = json['ratingTransition'],
+        isWinner = json['isWinner'],
         winner = json['winner'],
         loser = json['loser'];
 }
