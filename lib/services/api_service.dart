@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:tak_gg/models/game_model.dart';
 import 'package:tak_gg/models/player_model.dart';
 import 'package:tak_gg/models/rank_model.dart';
 
@@ -92,7 +92,7 @@ class ApiService {
 
       for (var rank in ranks) {
         final RankModel ranker = RankModel.fromJSON(rank);
-        
+
         rankList.add(ranker);
       }
 
@@ -102,22 +102,47 @@ class ApiService {
     throw Error();
   }
 
-  static Future<bool> postGameResult(List<Map<String,dynamic>>resultList) async {
+  static Future<bool> postGameResult(
+      List<Map<String, dynamic>> resultList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
     Map<String, String> headers = commonHeaders;
     headers['Authorization'] = 'Bearer $accToken';
-  
-    final url = Uri.parse('$baseUrl/games');
-    final response = await http.post(url, headers: headers,body: jsonEncode({
-      "resultList": resultList
-    }));
 
-    if(response.statusCode == 200) {
+    final url = Uri.parse('$baseUrl/games');
+    final response = await http.post(url,
+        headers: headers, body: jsonEncode({"resultList": resultList}));
+
+    if (response.statusCode == 200) {
       return true;
     }
 
-   return false;
+    return false;
+  }
+
+  static Future<List<GameModel>> getMatchHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accToken = prefs.getString('accessToken');
+
+    List<GameModel> historyList = [];
+    Map<String, String> headers = commonHeaders;
+    headers['Authorization'] = 'Bearer $accToken';
+
+    final url = Uri.parse('$baseUrl/ranking');
+    final response = await http.get(url, headers: headers);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final List<dynamic> histories = data['data'];
+
+      for (var history in histories) {
+        historyList.add(GameModel.fromJSON(history));
+      }
+
+      return historyList;
+    }
+
+    throw Error();
   }
 }
