@@ -134,7 +134,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      final List<dynamic> histories = data['data'];
+      final List<dynamic> histories = data['data']['games'];
 
       for (var history in histories) {
         historyList.add(GameModel.fromJSON(history));
