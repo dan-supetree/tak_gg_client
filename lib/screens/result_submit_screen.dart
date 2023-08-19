@@ -103,7 +103,8 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
           iconTheme: const IconThemeData(color: Colors.white),
         ),
         body: Padding(
-            padding: const EdgeInsets.all(32.0),
+            padding: const EdgeInsets.only(
+                top: 32.0, bottom: 32, left: 16, right: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
