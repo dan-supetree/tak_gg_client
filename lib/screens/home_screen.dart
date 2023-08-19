@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tak_gg/models/player_model.dart';
 import 'package:tak_gg/routes/slide_route.dart';
 import 'package:tak_gg/screens/history_screen.dart';
 import 'package:tak_gg/screens/profile_screen.dart';
 import 'package:tak_gg/screens/rank_screen.dart';
 import 'package:tak_gg/screens/result_submit_screen.dart';
+import 'package:tak_gg/services/api_service.dart';
+import 'package:tak_gg/states/players_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +17,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final PlayerController playerController = Get.put(PlayerController());
+
+  void fetchUserList() async {
+    if (playerController.userList.isNotEmpty) return;
+
+    final List<PlayerModel> data = await ApiService.getPlayers();
+    playerController.updateUsers(data);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Image(
                       image: AssetImage('assets/takgg_icon_rdbox.png'),
                       width: 200,
