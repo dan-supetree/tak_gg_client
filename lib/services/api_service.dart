@@ -121,7 +121,8 @@ class ApiService {
     return false;
   }
 
-  static Future<List<GameModel>> getMatchHistory() async {
+  static Future<List<GameModel>> getMatchHistory(
+      String playerId, int? page) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
 
@@ -129,7 +130,7 @@ class ApiService {
     Map<String, String> headers = commonHeaders;
     headers['Authorization'] = 'Bearer $accToken';
 
-    final url = Uri.parse('$baseUrl/ranking');
+    final url = Uri.parse('$baseUrl/games/$playerId?page=${page ?? 1} ');
     final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
