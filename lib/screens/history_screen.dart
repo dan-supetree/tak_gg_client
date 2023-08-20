@@ -4,6 +4,7 @@ import 'package:tak_gg/models/player_model.dart';
 import 'package:tak_gg/services/api_service.dart';
 import 'package:tak_gg/states/players_controller.dart';
 import 'package:tak_gg/states/user_controller.dart';
+import 'package:tak_gg/widgets/play_results.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -37,6 +38,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -86,44 +89,30 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   height: 32,
                 ),
                 FutureBuilder(
-                    future: Future.wait([
-                      ApiService.getPlayer(selected),
-                      //ApiService.getMatchHistory(selected, 1)
-                    ]),
+                    future: ApiService.getPlayer(selected),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        final PlayerModel user = snapshot.data![0];
+                        final PlayerModel user = snapshot.data!;
 
                         return Column(
                           children: [
-                            UserInfo(
-                              profileImage: user.profileImage,
-                              displayName: user.displayName,
-                              ratingPoint: user.ratingPoint ?? 0,
-                              playStyle: user.style ?? 'None',
-                              racket: user.racket ?? 'None',
-                              rubberList: user.rubberList?.join('/') ?? 'None',
+                            SizedBox(
+                              height: 180,
+                              child: UserInfo(
+                                profileImage: user.profileImage,
+                                displayName: user.displayName,
+                                ratingPoint: user.ratingPoint ?? 0,
+                                playStyle: user.style ?? 'None',
+                                racket: user.racket ?? 'None',
+                                rubberList:
+                                    user.rubberList?.join('/') ?? 'None',
+                              ),
                             ),
                             const SizedBox(height: 24),
-                            Column(
-                              children: [
-                                GameResult(userController: userController),
-                                const SizedBox(height: 24),
-                                GameResult(userController: userController),
-                                const SizedBox(height: 24),
-                                GameResult(userController: userController),
-                                const SizedBox(height: 24),
-                                GameResult(userController: userController),
-                                const SizedBox(height: 24),
-                                GameResult(userController: userController),
-                                const SizedBox(height: 24),
-                                GameResult(userController: userController),
-                                const SizedBox(height: 24),
-                                GameResult(userController: userController),
-                                const SizedBox(height: 24),
-                                GameResult(userController: userController),
-                              ],
-                            )
+                            SizedBox(
+                                height: size.height * 0.45,
+                                child: PlayResults(
+                                    key: UniqueKey(), playerId: user.playerId))
                           ],
                         );
                       }
@@ -134,70 +123,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     }),
               ],
             )));
-  }
-}
-
-class GameResult extends StatelessWidget {
-  const GameResult({
-    super.key,
-    required this.userController,
-  });
-
-  final UserController userController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          children: [
-            const Text(
-              'userName',
-            ),
-            const SizedBox(
-              width: 4,
-            ),
-            CircleAvatar(
-                radius: 14,
-                backgroundImage: NetworkImage(userController.profileImage)),
-            const SizedBox(
-              width: 12,
-            ),
-            const Text(
-              '11',
-              style: TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.w500, color: Colors.red),
-            ),
-          ],
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        const Text('End'),
-        const SizedBox(
-          width: 20,
-        ),
-        Row(
-          children: [
-            const Text(
-              '8',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(
-              width: 12,
-            ),
-            CircleAvatar(
-                radius: 14,
-                backgroundImage: NetworkImage(userController.profileImage)),
-            const SizedBox(
-              width: 4,
-            ),
-            const Text('userName'),
-          ],
-        ),
-      ],
-    );
   }
 }
 
