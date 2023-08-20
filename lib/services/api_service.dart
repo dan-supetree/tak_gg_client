@@ -121,7 +121,7 @@ class ApiService {
     return false;
   }
 
-  static Future<List<GameModel>> getMatchHistory(
+  static Future<Map<String, dynamic>> getMatchHistory(
       String playerId, int? page) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
@@ -136,12 +136,13 @@ class ApiService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final List<dynamic> histories = data['data']['games'];
+      final String total = data['data']['total'];
 
       for (var history in histories) {
         historyList.add(GameModel.fromJSON(history));
       }
 
-      return historyList;
+      return {'total': total, 'data': historyList};
     }
 
     throw Error();
