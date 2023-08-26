@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tak_gg/models/game_model.dart';
+import 'package:tak_gg/models/item_model.dart';
 import 'package:tak_gg/models/player_model.dart';
 import 'package:tak_gg/models/rank_model.dart';
 
@@ -123,28 +124,62 @@ class ApiService {
 
   static Future<Map<String, dynamic>> getMatchHistory(
       String playerId, int? page) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final accToken = prefs.getString('accessToken');
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final accToken = prefs.getString('accessToken');
 
-    List<GameModel> historyList = [];
-    Map<String, String> headers = commonHeaders;
-    headers['Authorization'] = 'Bearer $accToken';
+      List<GameModel> historyList = [];
+      Map<String, String> headers = commonHeaders;
+      headers['Authorization'] = 'Bearer $accToken';
 
-    final url = Uri.parse('$baseUrl/games/$playerId?page=${page ?? 1} ');
-    final response = await http.get(url, headers: headers);
+      final url = Uri.parse('$baseUrl/games/$playerId?page=${page ?? 1} ');
+      final response = await http.get(url, headers: headers);
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final List<dynamic> histories = data['data']['games'];
-      final String total = data['data']['total'];
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final List<dynamic> histories = data['data']['games'];
+        final String total = data['data']['total'];
 
-      for (var history in histories) {
-        historyList.add(GameModel.fromJSON(history));
+        for (var history in histories) {
+          historyList.add(GameModel.fromJSON(history));
+        }
+
+        return {'total': total, 'data': historyList};
       }
 
-      return {'total': total, 'data': historyList};
+      throw Error();
+    } catch (e) {
+      return {'total': 0, 'data': []};
     }
+  }
 
-    throw Error();
+  static Future<Map<String, dynamic>> getAllItems() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final accToken = prefs.getString('accessToken');
+
+      Map<String, String> headers = commonHeaders;
+      headers['Authorization'] = 'Bearer $accToken';
+
+      final url = Uri.parse('$baseUrl/items');
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body)['data'];
+        final List<dynamic> rubbers = data['rubbers'];
+        final List<dynamic> rackets = data['rackets'];
+
+        List<RubberModel> rubberList =
+            rubbers.map((rubber) => RubberModel.fromJSON(rubber)).toList();
+        List<RacketModel> racketList =
+            rackets.map((racket) => RacketModel.fromJSON(racket)).toList();
+
+        return {'rubbers': rubberList, 'rackets': racketList};
+      }
+
+      throw Error();
+    } catch (e) {
+      return {'rubbers': [], 'rackets': []};
+    }
   }
 }
