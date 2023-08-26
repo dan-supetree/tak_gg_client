@@ -76,6 +76,26 @@ class ApiService {
     throw Error();
   }
 
+  static Future<PlayerModel> modifyPlayer(
+      {String? style, int? racket, List<int>? rubbers}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accToken = prefs.getString('accessToken');
+
+    Map<String, String> headers = commonHeaders;
+    headers['Authorization'] = 'Bearer $accToken';
+
+    final url = Uri.parse('$baseUrl/players');
+    final response = await http.put(url, headers: headers);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data'];
+      final player = PlayerModel.fromJSON(data);
+      return player;
+    }
+
+    throw Error();
+  }
+
   static Future<List<RankModel>> getRankList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accToken = prefs.getString('accessToken');
