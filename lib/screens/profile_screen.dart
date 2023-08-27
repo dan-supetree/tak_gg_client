@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:get/get.dart';
 import 'package:tak_gg/models/item_model.dart';
+import 'package:tak_gg/screens/auth_screen.dart';
 import 'package:tak_gg/services/api_service.dart';
 import 'package:tak_gg/states/user_controller.dart';
 import 'package:tak_gg/utils/auth.dart';
@@ -123,7 +124,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     void handleSignOut() {
       resetSession();
       userController.resetUser();
-      setState(() {});
+      setState(() {
+        Navigator.of(context).popUntil(ModalRoute.withName("/home"));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                settings: const RouteSettings(name: "/auth"),
+                builder: (context) => const AuthScreen(),
+                fullscreenDialog: true));
+      });
     }
 
     return Scaffold(
@@ -232,7 +241,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50),
                         ),
-                        onPressed: null,
+                        onPressed: handleSignOut,
                         child: const Text('Sign Out'))
                   ],
                 )
