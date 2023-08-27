@@ -72,13 +72,17 @@ class _AuthScreenState extends State<AuthScreen> {
                               "profileImage": player.profileImage,
                               "displayName": player.displayName,
                               "racket": player.racket,
-                              "rubberList": player.rubberList,
+                              "rubberList":
+                                  List<String>.from(player.rubberList ?? []),
                               "ratingPoint": player.ratingPoint,
+                              "style": player.style
                             });
 
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
+                                    settings:
+                                        const RouteSettings(name: '/home'),
                                     builder: (context) => const HomeScreen()));
                           } catch (e) {
                             print('error:$e');

@@ -36,12 +36,14 @@ class _SplashScreenState extends State<SplashScreen> {
             "profileImage": player.profileImage,
             "displayName": player.displayName,
             "racket": player.racket,
-            "rubberList": player.rubberList,
+            "rubberList": List<String>.from(player.rubberList ?? []),
             "ratingPoint": player.ratingPoint,
+            "style": player.style
           });
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
+                  settings: const RouteSettings(name: "/home"),
                   builder: (context) => const HomeScreen(),
                   fullscreenDialog: true));
         }).catchError((e) {
@@ -49,6 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
+                  settings: const RouteSettings(name: "/auth"),
                   builder: (context) => const AuthScreen(),
                   fullscreenDialog: true));
         });
