@@ -85,7 +85,11 @@ class ApiService {
     headers['Authorization'] = 'Bearer $accToken';
 
     final url = Uri.parse('$baseUrl/players');
-    final response = await http.put(url, headers: headers);
+    final data = {"style": style, "racket": racket, 'rubbers': rubbers};
+    data.removeWhere((key, value) => value == null);
+
+    final response =
+        await http.patch(url, headers: headers, body: jsonEncode(data));
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body)['data'];
@@ -181,6 +185,9 @@ class ApiService {
       Map<String, String> headers = commonHeaders;
       headers['Authorization'] = 'Bearer $accToken';
 
+      List<RubberModel> rubberList = [];
+      List<RacketModel> racketList = [];
+
       final url = Uri.parse('$baseUrl/items');
       final response = await http.get(url, headers: headers);
 
@@ -189,10 +196,13 @@ class ApiService {
         final List<dynamic> rubbers = data['rubbers'];
         final List<dynamic> rackets = data['rackets'];
 
-        List<RubberModel> rubberList =
-            rubbers.map((rubber) => RubberModel.fromJSON(rubber)).toList();
-        List<RacketModel> racketList =
-            rackets.map((racket) => RacketModel.fromJSON(racket)).toList();
+        for (var rubber in rubbers) {
+          rubberList.add(RubberModel.fromJSON(rubber));
+        }
+
+        for (var racket in rackets) {
+          racketList.add(RacketModel.fromJSON(racket));
+        }
 
         return {'rubbers': rubberList, 'rackets': racketList};
       }

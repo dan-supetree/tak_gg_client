@@ -12,12 +12,13 @@ class UserController extends GetxController {
   num ratingPoint = 0;
 
   void updateUser(Map<String, dynamic> data) {
-    playerId = data['playerId'];
-    displayName = data['displayName'];
-    profileImage = data['profileImage'];
-    racket = data['racket'];
-    rubberList = data['rubberList'];
-    ratingPoint = data['ratingPoint'];
+    playerId = data['playerId'] ?? playerId;
+    displayName = data['displayName'] ?? displayName;
+    profileImage = data['profileImage'] ?? profileImage;
+    racket = data['racket'] ?? racket;
+    rubberList = data['rubberList'] ?? rubberList;
+    ratingPoint = data['ratingPoint'] ?? ratingPoint;
+    style = data['style'] ?? style;
     active = true;
 
     update();

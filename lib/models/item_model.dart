@@ -1,5 +1,5 @@
 class RacketModel {
-  final String id;
+  final int id;
   final String name;
 
   RacketModel.fromJSON(Map<String, dynamic> json)
@@ -11,7 +11,7 @@ class RacketModel {
 }
 
 class RubberModel {
-  final String id;
+  final int id;
   final String name;
 
   RubberModel.fromJSON(Map<String, dynamic> json)
