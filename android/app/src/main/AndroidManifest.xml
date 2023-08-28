@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tak_gg">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="tak_gg"
         android:name="${applicationName}"
