@@ -72,6 +72,12 @@ class _PlayResultsState extends State<PlayResults> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_loading && _page == 1 && gameResults.isEmpty) {
+      return const Center(
+        child: Text('No Data'),
+      );
+    }
+
     return ListView.separated(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
