@@ -8,7 +8,7 @@ class UserController extends GetxController {
   String profileImage = '';
   String style = '';
   String? racket;
-  List<String>? rubberList;
+  List<String> rubberList = [];
   num ratingPoint = 0;
 
   void updateUser(Map<String, dynamic> data) {
@@ -30,7 +30,7 @@ class UserController extends GetxController {
     profileImage = '';
     style = '';
     racket = null;
-    rubberList = null;
+    rubberList = [];
     ratingPoint = 0;
     active = false;
 
