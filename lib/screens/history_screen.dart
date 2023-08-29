@@ -204,9 +204,10 @@ class UserInfo extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,9 +219,16 @@ class UserInfo extends StatelessWidget {
                         const SizedBox(
                           height: 8,
                         ),
-                        Text(racket,
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w700)),
+                        SizedBox(
+                          width: 120,
+                          height: 28,
+                          child: Text(racket,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              )),
+                        ),
                       ]),
                   Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -232,9 +240,14 @@ class UserInfo extends StatelessWidget {
                         const SizedBox(
                           height: 8,
                         ),
-                        Text(rubberList,
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w700)),
+                        SizedBox(
+                          width: 120,
+                          height: 28,
+                          child: Text(rubberList,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w700)),
+                        ),
                       ])
                 ],
               )),
