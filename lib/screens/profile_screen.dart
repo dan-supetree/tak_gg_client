@@ -67,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             await ApiService.modifyPlayer(style: selected['style']);
             setState(() {
               userController.updateUser(
-                  {'style': selected['style'].toString().toUpperCase()});
+                  {'style': selected['style'].toString().toLowerCase()});
             });
           },
           onCancelled: () {
@@ -105,11 +105,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
           });
     }
 
+    void handleSelectionChanged(value) {
+      if ((userController.style == 'shake' && value.length > 2) ||
+          (userController.style == 'penhold' && value.length > 1)) {
+        value.removeAt(0);
+      }
+    }
+
     void handleEditRubber() {
       showMaterialCheckboxPicker(
           context: context,
           title: 'Select your rubbers',
+          selectedItems: rubbers
+              .where(
+                  (rubber) => userController.rubberList.contains(rubber.name))
+              .toList(),
           items: rubbers,
+          onSelectionChanged: handleSelectionChanged,
           onChanged: (value) async {
             if (userController.style == 'shake' && value.length != 2) {
               alertMessage(
