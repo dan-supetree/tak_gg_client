@@ -50,7 +50,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     void handleEditStyle() {
       showMaterialRadioPicker(
           context: context,
+          title: 'Select your play style',
           items: ['shake', 'penhold'],
+          maxLongSide: 280,
           selectedItem: selected['style'] == ''
               ? userController.style.toLowerCase()
               : selected['style'],
@@ -78,6 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     void handleEditRacket() {
       showMaterialRadioPicker(
           context: context,
+          title: 'Select your racket',
           items: rackets,
           selectedItem: selected['racket'] != 0
               ? rackets[selected['racket'] - 1]
@@ -105,8 +108,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     void handleEditRubber() {
       showMaterialCheckboxPicker(
           context: context,
+          title: 'Select your rubbers',
           items: rubbers,
           onChanged: (value) async {
+            if (userController.style == 'shake' && value.length != 2) {
+              alertMessage(
+                  context, 'Notice', 'Shake player should select 2 rubbers');
+              return;
+            }
+
+            if (userController.style == 'penhold' && value.length != 1) {
+              alertMessage(
+                  context, 'Notice', 'Penhold player should select 1 rubber');
+              return;
+            }
+
             final ids = value.map((rubber) => rubber.id).toList();
             final res = await ApiService.modifyPlayer(rubbers: ids);
             setState(() {
@@ -214,9 +230,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   onTap: handleEditRubber,
                                   child: PlayerInfo(
                                       name: 'Rubber',
-                                      value: userController.rubberList
-                                              ?.join(',') ??
-                                          'None')),
+                                      value: userController
+                                              .rubberList.isNotEmpty
+                                          ? userController.rubberList.join(',')
+                                          : 'None')),
                             ),
                             const SizedBox(height: 24),
                             Row(
@@ -247,6 +264,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )
               ],
             )));
+  }
+
+  Future<dynamic> alertMessage(
+      BuildContext context, String title, String description) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            title: Column(
+              children: [Text(title)],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(description)
+                //Text("Shake player should select 2 rubbers")
+              ],
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("OK"),
+              )
+            ],
+          );
+        });
   }
 }
 
