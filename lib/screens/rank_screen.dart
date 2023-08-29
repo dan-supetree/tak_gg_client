@@ -14,7 +14,7 @@ class RankScreen extends StatefulWidget {
 }
 
 class _RankScreenState extends State<RankScreen> {
-  final Future<List<RankModel>> ranks = ApiService.getRankList();
+  Future<List<RankModel>> ranks = ApiService.getRankList();
 
   @override
   Widget build(BuildContext context) {
@@ -29,66 +29,75 @@ class _RankScreenState extends State<RankScreen> {
           backgroundColor: Colors.blue,
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-        body: FutureBuilder(
-          future: ranks,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final data = snapshot.data!;
+        body: RefreshIndicator(
+          onRefresh: () {
+            setState(() {
+              ranks = ApiService.getRankList();
+            });
+            return Future<void>.value();
+          },
+          child: FutureBuilder(
+            future: ranks,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final data = snapshot.data!;
 
-              if (data.isEmpty) return const Text('Empty');
+                if (data.isEmpty) return const Text('Empty');
 
-              final topRanks = data.sublist(0, 3);
-              final etcRanks = data.sublist(3);
+                final topRanks = data.sublist(0, 3);
+                final etcRanks = data.sublist(3);
 
-              return Container(
-                color: Colors.blue,
-                child: Column(
-                  children: [
-                    Flexible(
-                      flex: 0,
-                      child: Container(
-                        color: Colors.blue,
-                        height: 300,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TopRankList(topRanks: topRanks),
-                          ],
+                return Container(
+                  color: Colors.blue,
+                  child: Column(
+                    children: [
+                      Flexible(
+                        flex: 0,
+                        child: Container(
+                          color: Colors.blue,
+                          height: 300,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TopRankList(topRanks: topRanks),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30)),
-                        child: Container(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 40, bottom: 60),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  RankList(
-                                      etcRanks: etcRanks,
-                                      userController: userController),
-                                ],
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30)),
+                          child: Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 40, bottom: 60),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    RankList(
+                                        etcRanks: etcRanks,
+                                        userController: userController),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
+                      )
+                    ],
+                  ),
+                );
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+            },
+          ),
         ));
   }
 }
