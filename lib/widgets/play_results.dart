@@ -61,9 +61,7 @@ class _PlayResultsState extends State<PlayResults> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    print('dadwa ${widget.playerId}');
   }
 
   @override
