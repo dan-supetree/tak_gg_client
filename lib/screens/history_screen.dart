@@ -7,7 +7,8 @@ import 'package:tak_gg/states/user_controller.dart';
 import 'package:tak_gg/widgets/play_results.dart';
 
 class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+  const HistoryScreen({super.key, this.displayName});
+  final String? displayName;
 
   @override
   State<HistoryScreen> createState() => _HistoryScreenState();
@@ -21,9 +22,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   void initUserList() {
     final List<PlayerModel> data = [...playerController.userList];
-    PlayerModel user = data
-        .firstWhere((item) => item.displayName == userController.displayName);
-    data.removeWhere((item) => item.displayName == userController.displayName);
+    final userName = widget.displayName ?? userController.displayName;
+
+    PlayerModel user = data.firstWhere((item) => item.displayName == userName);
+    data.removeWhere((item) => item.displayName == userName);
     setState(() {
       users = [user, ...data];
       selected = user.playerId;
