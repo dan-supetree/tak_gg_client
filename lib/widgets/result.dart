@@ -30,25 +30,41 @@ class Result extends StatelessWidget {
             const SizedBox(
               width: 12,
             ),
-            Text(
-              winner.score.toString().padLeft(2, '0'),
-              style: const TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.w500, color: Colors.red),
+            SizedBox(
+              width: 30,
+              child: Center(
+                child: Text(
+                  winner.score.toString().padLeft(2, '0'),
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.red),
+                ),
+              ),
             ),
           ],
         ),
         const SizedBox(
           width: 20,
         ),
-        const Text('End'),
+        const Text(
+          ':',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
         const SizedBox(
           width: 20,
         ),
         Row(
           children: [
-            Text(
-              loser.score.toString().padLeft(2, '0'),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            SizedBox(
+              width: 30,
+              child: Center(
+                child: Text(
+                  loser.score.toString().padLeft(2, '0'),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+              ),
             ),
             const SizedBox(
               width: 12,
