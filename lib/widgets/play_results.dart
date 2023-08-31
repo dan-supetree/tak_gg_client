@@ -90,6 +90,7 @@ class _PlayResultsState extends State<PlayResults> {
           }
 
           return Result(
+              playerId: widget.playerId,
               winner: gameResults[index].winner,
               loser: gameResults[index].loser);
         },

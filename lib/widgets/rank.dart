@@ -25,7 +25,9 @@ class Rank extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => HistoryScreen(displayName: name)));
+              builder: (context) => HistoryScreen(displayName: name),
+              settings: const RouteSettings(name: "/history"),
+            ));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
