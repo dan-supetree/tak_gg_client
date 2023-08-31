@@ -163,12 +163,21 @@ class ApiService {
         final data = jsonDecode(response.body);
         final List<dynamic> histories = data['data']['games'];
         final String total = data['data']['total'];
+        final String win = data['data']['winCount'];
+        final String lose = data['data']['loseCount'];
 
         for (var history in histories) {
           historyList.add(GameModel.fromJSON(history));
         }
 
-        return {'total': total, 'data': historyList};
+        return {
+          'total': total,
+          'data': historyList,
+          'win': win,
+          'lose': lose,
+          'winRate': ((double.parse(win) / double.parse(total)) * 100)
+              .toStringAsFixed(0)
+        };
       }
 
       throw Error();
