@@ -224,7 +224,7 @@ class UserInfo extends StatelessWidget {
                         SizedBox(
                           width: 120,
                           height: 28,
-                          child: Text(racket,
+                          child: SelectableText(racket,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 12,
@@ -245,7 +245,7 @@ class UserInfo extends StatelessWidget {
                         SizedBox(
                           width: 120,
                           height: 28,
-                          child: Text(rubberList,
+                          child: SelectableText(rubberList,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   fontSize: 12, fontWeight: FontWeight.w700)),
