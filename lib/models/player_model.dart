@@ -1,3 +1,14 @@
+class MatchStatModel {
+  final int? total;
+  final int? winCount;
+  final int? loseCount;
+
+  MatchStatModel.fromJSON(Map<String, dynamic> json)
+      : total = json['total'] ?? 0,
+        winCount = json['winCount'] ?? 0,
+        loseCount = json['loseCount'] ?? 0;
+}
+
 class PlayerModel {
   final String playerId;
   final String displayName;
