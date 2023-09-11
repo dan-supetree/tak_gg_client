@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:tak_gg/screens/history_screen.dart';
-import 'package:tak_gg/states/user_controller.dart';
 
 class Rank extends StatelessWidget {
   const Rank({
     super.key,
-    required this.userController,
     required this.rank,
     required this.name,
     required this.points,
     required this.profileImage,
   });
 
-  final UserController userController;
   final String rank;
   final String name;
   final String profileImage;

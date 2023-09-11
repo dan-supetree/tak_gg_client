@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:tak_gg/states/user_controller.dart';
 import 'package:tak_gg/services/api_service.dart';
 import 'package:tak_gg/models/rank_model.dart';
 import 'package:tak_gg/widgets/rank.dart';
@@ -18,8 +16,6 @@ class _RankScreenState extends State<RankScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final UserController userController = Get.put(UserController());
-
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -80,8 +76,8 @@ class _RankScreenState extends State<RankScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     RankList(
-                                        etcRanks: etcRanks,
-                                        userController: userController),
+                                      etcRanks: etcRanks,
+                                    )
                                   ],
                                 ),
                               ),
@@ -143,11 +139,9 @@ class RankList extends StatelessWidget {
   const RankList({
     super.key,
     required this.etcRanks,
-    required this.userController,
   });
 
   final List<RankModel> etcRanks;
-  final UserController userController;
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +150,6 @@ class RankList extends StatelessWidget {
       primary: false,
       itemCount: etcRanks.length,
       itemBuilder: (context, index) => Rank(
-        userController: userController,
         rank: etcRanks[index].rank,
         name: etcRanks[index].displayName,
         points: etcRanks[index].ratingPoint,
