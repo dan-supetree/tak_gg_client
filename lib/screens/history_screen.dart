@@ -158,6 +158,8 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double rate = (double.parse(winCount) / double.parse(total)) * 100;
+
     return Column(
       children: [
         Row(
@@ -210,7 +212,7 @@ class UserInfo extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                            'W$winCount L$loseCount  ${((double.parse(winCount) / double.parse(total)) * 100).toStringAsFixed(1)}%',
+                            'W$winCount L$loseCount  ${rate.isNaN ? '0' : rate.toStringAsFixed(1)}%',
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
