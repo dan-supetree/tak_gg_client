@@ -95,7 +95,7 @@ class _PlayResultsState extends State<PlayResults> {
               loser: gameResults[index].loser);
         },
         separatorBuilder: (context, index) {
-          return const SizedBox(height: 32);
+          return const SizedBox(height: 4);
         },
         itemCount: gameResults.length);
   }
