@@ -1,12 +1,12 @@
 class MatchStatModel {
-  final int? total;
-  final int? winCount;
-  final int? loseCount;
+  final String total;
+  final String winCount;
+  final String loseCount;
 
   MatchStatModel.fromJSON(Map<String, dynamic> json)
-      : total = json['total'] ?? 0,
-        winCount = json['winCount'] ?? 0,
-        loseCount = json['loseCount'] ?? 0;
+      : total = json['total'],
+        winCount = json['winCount'],
+        loseCount = json['loseCount'];
 }
 
 class PlayerModel {
@@ -17,6 +17,7 @@ class PlayerModel {
   final List<dynamic>? rubberList;
   final num? ratingPoint;
   final String? style;
+  final MatchStatModel? matchStat;
 
   PlayerModel.fromJSON(Map<String, dynamic> json)
       : playerId = json['playerId'],
@@ -25,7 +26,9 @@ class PlayerModel {
         racket = json['racket'],
         style = json['style'],
         rubberList = json['rubberList'],
-        ratingPoint = json['ratingPoint'] ?? 0;
+        ratingPoint = json['ratingPoint'] ?? 0,
+        matchStat = MatchStatModel.fromJSON(json['matchStat'] ??
+            {'total': '0', 'winCount': '0', 'loseCount': '0'});
 
   @override
   String toString() => displayName;
