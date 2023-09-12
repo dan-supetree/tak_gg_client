@@ -38,7 +38,10 @@ class _SplashScreenState extends State<SplashScreen> {
             "racket": player.racket,
             "rubberList": List<String>.from(player.rubberList ?? []),
             "ratingPoint": player.ratingPoint,
-            "style": player.style
+            "style": player.style,
+            'winCount': player.matchStat?.winCount ?? '0',
+            "loseCount": player.matchStat?.loseCount ?? '0',
+            "total": player.matchStat?.total ?? '0',
           });
           Navigator.pushReplacement(
               context,

@@ -75,7 +75,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               "rubberList":
                                   List<String>.from(player.rubberList ?? []),
                               "ratingPoint": player.ratingPoint,
-                              "style": player.style
+                              "style": player.style,
                             });
 
                             Navigator.pushReplacement(
@@ -85,7 +85,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                         const RouteSettings(name: '/home'),
                                     builder: (context) => const HomeScreen()));
                           } catch (e) {
-                            print('error:$e');
+                            print('errorrrr:$e');
                           }
                         },
                   child: const Text(

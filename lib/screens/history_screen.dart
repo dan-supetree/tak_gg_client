@@ -96,6 +96,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       if (snapshot.hasData) {
                         final PlayerModel user = snapshot.data!;
 
+                        print(snapshot.data);
                         return Column(
                           children: [
                             SizedBox(
@@ -108,6 +109,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 racket: user.racket ?? 'None',
                                 rubberList:
                                     user.rubberList?.join('/') ?? 'None',
+                                winCount: user.matchStat?.winCount ?? '0',
+                                loseCount: user.matchStat?.loseCount ?? '0',
+                                total: user.matchStat?.total ?? '0',
                               ),
                             ),
                             const SizedBox(height: 24),
@@ -137,6 +141,9 @@ class UserInfo extends StatelessWidget {
     required this.playStyle,
     required this.racket,
     required this.rubberList,
+    required this.winCount,
+    required this.loseCount,
+    required this.total,
   });
 
   final String profileImage;
@@ -145,6 +152,9 @@ class UserInfo extends StatelessWidget {
   final String playStyle;
   final String racket;
   final String rubberList;
+  final String winCount;
+  final String loseCount;
+  final String total;
 
   @override
   Widget build(BuildContext context) {
@@ -181,19 +191,34 @@ class UserInfo extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Text('Points: ',
-                        style: TextStyle(
-                          fontSize: 14,
-                        )),
-                    Text(
-                      '$ratingPoint.LP',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Row(
+                      children: [
+                        const Text('Points: ',
+                            style: TextStyle(
+                              fontSize: 14,
+                            )),
+                        Text(
+                          '$ratingPoint.LP',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 8),
+                    Row(
+                      children: [
+                        Text(
+                            'W$winCount L$loseCount  ${((double.parse(winCount) / double.parse(total)) * 100).toStringAsFixed(1)}%',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                            )),
+                      ],
                     ),
                   ],
-                )
+                ),
               ],
             )
           ],

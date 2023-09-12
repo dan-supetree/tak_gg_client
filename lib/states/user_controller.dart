@@ -10,6 +10,9 @@ class UserController extends GetxController {
   String? racket;
   List<String> rubberList = [];
   num ratingPoint = 0;
+  String total = '0';
+  String winCount = '0';
+  String loseCount = '0';
 
   void updateUser(Map<String, dynamic> data) {
     playerId = data['playerId'] ?? playerId;
@@ -20,6 +23,9 @@ class UserController extends GetxController {
     ratingPoint = data['ratingPoint'] ?? ratingPoint;
     style = data['style'] ?? style;
     active = true;
+    total = data['total'];
+    winCount = data['winCount'];
+    loseCount = data['loseCount'];
 
     update();
   }
@@ -33,6 +39,9 @@ class UserController extends GetxController {
     rubberList = [];
     ratingPoint = 0;
     active = false;
+    total = '0';
+    winCount = '0';
+    loseCount = '0';
 
     update();
   }
