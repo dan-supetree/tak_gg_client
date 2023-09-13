@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:tak_gg/models/player_model.dart';
 import 'package:tak_gg/services/api_service.dart';
 import 'package:tak_gg/states/players_controller.dart';
@@ -158,68 +159,124 @@ class UserInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double rate = (double.parse(winCount) / double.parse(total)) * 100;
+    final List<MatchData> chartData = winCount != '0' || loseCount != '0'
+        ? [
+            MatchData('win', double.parse(winCount),
+                const Color.fromARGB(255, 167, 194, 252)),
+            MatchData('lose', double.parse(loseCount),
+                const Color.fromARGB(255, 255, 157, 172))
+          ]
+        : [
+            MatchData('total', double.parse('1'),
+                const Color.fromARGB(255, 207, 207, 207)),
+            MatchData('empty', double.parse('0'),
+                const Color.fromARGB(255, 207, 207, 207))
+          ];
 
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(
-                radius: 40, backgroundImage: NetworkImage(profileImage)),
-            const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text(displayName,
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.w800)),
-                const SizedBox(height: 4),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Style: ',
-                          style: TextStyle(
-                            fontSize: 14,
-                          )),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Text(playStyle.toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          )),
-                    ]),
-                const SizedBox(height: 4),
-                Row(
+                CircleAvatar(
+                    radius: 35, backgroundImage: NetworkImage(profileImage)),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(displayName,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w800)),
+                    const SizedBox(height: 4),
                     Row(
-                      children: [
-                        const Text('Points: ',
-                            style: TextStyle(
-                              fontSize: 14,
-                            )),
-                        Text(
-                          '$ratingPoint.LP',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Style: ',
+                              style: TextStyle(
+                                fontSize: 14,
+                              )),
+                          const SizedBox(
+                            width: 4,
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 8),
+                          Text(playStyle.toUpperCase(),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                              )),
+                        ]),
+                    const SizedBox(height: 4),
                     Row(
                       children: [
-                        Text(
-                            'W$winCount L$loseCount  ${rate.isNaN ? '0' : rate.toStringAsFixed(1)}%',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                            )),
+                        Row(
+                          children: [
+                            const Text('Points: ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                )),
+                            Text(
+                              '$ratingPoint.LP',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],
                 ),
+              ],
+            ),
+            Column(
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 80,
+                        child: SfCircularChart(
+                          margin: const EdgeInsets.all(0),
+                          annotations: [
+                            CircularChartAnnotation(
+                                widget: SizedBox(
+                                    width: 35,
+                                    height: 35,
+                                    child: PhysicalModel(
+                                        shape: BoxShape.circle,
+                                        elevation: 5,
+                                        shadowColor: Colors.black,
+                                        color: const Color.fromARGB(
+                                            255, 255, 255, 255),
+                                        child: Container()))),
+                            CircularChartAnnotation(
+                                widget: Text(
+                                    '${rate.isNaN ? '0' : rate.toStringAsFixed(1)}%',
+                                    style: const TextStyle(
+                                        color: Color.fromRGBO(0, 0, 0, 1),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 9)))
+                          ],
+                          series: <CircularSeries>[
+                            DoughnutSeries<MatchData, String>(
+                              dataSource: chartData,
+                              strokeWidth: 1,
+                              animationDuration: 700,
+                              strokeColor: Colors.white38,
+                              pointColorMapper: (MatchData data, _) =>
+                                  data.color,
+                              xValueMapper: (MatchData data, _) => data.x,
+                              yValueMapper: (MatchData data, _) => data.y,
+                            )
+                          ],
+                        ),
+                      ),
+                    ]),
               ],
             )
           ],
