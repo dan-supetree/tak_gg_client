@@ -52,6 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           context: context,
           title: 'Select your play style',
           items: ['shake', 'penhold'],
+          headerColor: Colors.blueGrey[900],
           maxLongSide: 280,
           selectedItem: selected['style'] == ''
               ? userController.style.toLowerCase()
@@ -81,6 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       showMaterialRadioPicker(
           context: context,
           title: 'Select your racket',
+          headerColor: Colors.blueGrey[900],
           items: rackets,
           selectedItem: selected['racket'] != 0
               ? rackets[selected['racket'] - 1]
@@ -116,6 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       showMaterialCheckboxPicker(
           context: context,
           title: 'Select your rubbers',
+          headerColor: Colors.blueGrey[900],
           selectedItems: rubbers
               .where(
                   (rubber) => userController.rubberList.contains(rubber.name))

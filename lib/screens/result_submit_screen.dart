@@ -31,7 +31,10 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
     showMaterialScrollPicker(
         context: context,
         items: users,
+        title: 'Select player',
         selectedItem: selected,
+        headerColor: Colors.blueGrey[900],
+        buttonTextColor: Colors.blueGrey[900],
         onChanged: (value) {
           final user = users
               .firstWhere((item) => item.displayName == value?.displayName);
@@ -120,6 +123,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                               minNumber: 0,
                               maxNumber: 21,
                               title: 'Pick the Game Score',
+                              headerColor: Colors.blueGrey[900],
                               selectedNumber: player1Score,
                               onChanged: (value) {
                                 setState(() {
@@ -157,6 +161,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                               context: context,
                               minNumber: 0,
                               maxNumber: 21,
+                              headerColor: Colors.blueGrey[900],
                               title: 'Pick the Game Score',
                               selectedNumber: player2Score,
                               onChanged: (value) {
