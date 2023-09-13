@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tak_gg/screens/history_screen.dart';
 
 class TopRank extends StatelessWidget {
@@ -31,6 +32,10 @@ class TopRank extends StatelessWidget {
             },
             child: Column(
               children: [
+                Lottie.asset(
+                    'assets/lottie/crown${rank == '1' ? '' : rank}.json',
+                    width: 100,
+                    height: 30),
                 CircleAvatar(
                     radius: 30, backgroundImage: NetworkImage(profileImage)),
                 Padding(
