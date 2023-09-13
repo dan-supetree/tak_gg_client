@@ -48,7 +48,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             'Match History',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blueGrey[900],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
         body: Padding(
@@ -96,7 +96,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       if (snapshot.hasData) {
                         final PlayerModel user = snapshot.data!;
 
-                        print(snapshot.data);
                         return Column(
                           children: [
                             SizedBox(

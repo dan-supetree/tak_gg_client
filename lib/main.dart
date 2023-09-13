@@ -20,7 +20,11 @@ class App extends StatelessWidget {
               color: Colors.white,
               elevation: 0,
               toolbarHeight: 56),
-          scaffoldBackgroundColor: const Color(0xffffffff)),
+          scaffoldBackgroundColor: const Color(0xffffffff),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueGrey[900],
+          ))),
       home: const SplashScreen(),
     );
   }

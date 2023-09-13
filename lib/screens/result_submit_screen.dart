@@ -99,7 +99,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
             'Submit Game Result',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blueGrey[900],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
         body: Padding(

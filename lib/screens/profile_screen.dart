@@ -165,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blueGrey[900],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
         body: Padding(
@@ -181,7 +181,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Container(
                       width: 200,
                       height: 90,
-                      color: Colors.blue,
+                      color: Colors.blueGrey[900],
                       child: Align(
                           alignment: Alignment.center,
                           child: Text(userController.displayName,
@@ -269,6 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50),
+                          backgroundColor: Colors.blueGrey[900],
                         ),
                         onPressed: handleSignOut,
                         child: const Text('Sign Out'))

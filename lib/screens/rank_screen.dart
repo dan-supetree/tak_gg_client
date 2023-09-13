@@ -22,7 +22,7 @@ class _RankScreenState extends State<RankScreen> {
             'Ranking',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blueGrey[900],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
         body: RefreshIndicator(
@@ -44,13 +44,13 @@ class _RankScreenState extends State<RankScreen> {
                 final etcRanks = data.sublist(3);
 
                 return Container(
-                  color: Colors.blue,
+                  color: Colors.blueGrey[800],
                   child: Column(
                     children: [
                       Flexible(
                         flex: 0,
                         child: Container(
-                          color: Colors.blue,
+                          color: Colors.blueGrey[800],
                           height: 300,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
