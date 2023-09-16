@@ -207,181 +207,191 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
             backgroundColor: Colors.blueGrey[900],
             iconTheme: const IconThemeData(color: Colors.white),
           ),
-          body: Stepper(
-            currentStep: step,
-            type: StepperType.horizontal,
-            onStepTapped: onTapStep,
-            onStepContinue: onContinueStep,
-            onStepCancel: onCancelStep,
-            controlsBuilder: controlsBuilder,
-            steps: [
-              Step(
-                  isActive: step >= 0,
-                  state: step >= 0 ? StepState.complete : StepState.disabled,
-                  title: const Text(''),
-                  content: SizedBox(
-                    height: height * 0.5,
-                    child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 32.0, bottom: 32, left: 0, right: 0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'What is your score?',
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 20),
-                            TextField(
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              decoration: const InputDecoration(
-                                labelText: 'Score',
-                                hintText: 'Enter your Score',
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.redAccent),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                ),
-                              ),
-                              onChanged: onChangeMyScore,
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            const Text('Please check your score before submit',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                )),
-                          ],
-                        )),
-                  )),
-              Step(
-                  isActive: step >= 1,
-                  state: step >= 1 ? StepState.complete : StepState.disabled,
-                  title: const Text(''),
-                  content: SizedBox(
-                    height: height * 0.5,
-                    child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 32.0, bottom: 32, left: 0, right: 0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'What is opponent score?',
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 20),
-                            TextField(
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              decoration: const InputDecoration(
-                                labelText: 'Score',
-                                hintText: 'Enter Score',
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.redAccent),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                ),
-                              ),
-                              onChanged: onChangeOpponentScore,
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            const Text('Please check your score before submit',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                )),
-                          ],
-                        )),
-                  )),
-              Step(
-                  isActive: step >= 2,
-                  state: step >= 2 ? StepState.complete : StepState.disabled,
-                  title: const Text(''),
-                  content: SizedBox(
-                    height: height * 0.5,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 32.0, bottom: 32, left: 0, right: 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          PlayerDropdown(
-                              selected: selected,
-                              dropdownHandler: onSelectOpponent),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black12,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text('You',
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600)),
-                                  SizedBox(width: 18),
-                                  Text(' VS '),
-                                  SizedBox(width: 18),
-                                  Text('???',
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600))
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
+          body: Theme(
+            data: ThemeData(
+                colorScheme: Theme.of(context).colorScheme.copyWith(
+                      primary: Colors.blueGrey[900],
+                    )),
+            child: Stepper(
+              currentStep: step,
+              type: StepperType.horizontal,
+              onStepTapped: onTapStep,
+              onStepContinue: onContinueStep,
+              onStepCancel: onCancelStep,
+              controlsBuilder: controlsBuilder,
+              steps: [
+                Step(
+                    isActive: step >= 0,
+                    state: step >= 0 ? StepState.complete : StepState.disabled,
+                    title: const Text(''),
+                    content: SizedBox(
+                      height: height * 0.5,
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 32.0, bottom: 32, left: 0, right: 0),
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                player1Score.toString().padLeft(2, '0'),
-                                style: const TextStyle(
-                                    fontSize: 45, fontWeight: FontWeight.w600),
+                              const Text(
+                                'What is your score?',
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.w600),
                               ),
-                              const Text(' : ', style: TextStyle(fontSize: 40)),
-                              Text(player2Score.toString().padLeft(2, '0'),
+                              const SizedBox(height: 20),
+                              TextField(
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                decoration: const InputDecoration(
+                                  labelText: 'Score',
+                                  hintText: 'Enter your Score',
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.redAccent),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                  ),
+                                ),
+                                onChanged: onChangeMyScore,
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              const Text(
+                                  'Please check your score before submit',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  )),
+                            ],
+                          )),
+                    )),
+                Step(
+                    isActive: step >= 1,
+                    state: step >= 1 ? StepState.complete : StepState.disabled,
+                    title: const Text(''),
+                    content: SizedBox(
+                      height: height * 0.5,
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 32.0, bottom: 32, left: 0, right: 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'What is opponent score?',
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(height: 20),
+                              TextField(
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                decoration: const InputDecoration(
+                                  labelText: 'Score',
+                                  hintText: 'Enter Score',
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.redAccent),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                  ),
+                                ),
+                                onChanged: onChangeOpponentScore,
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              const Text(
+                                  'Please check your score before submit',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  )),
+                            ],
+                          )),
+                    )),
+                Step(
+                    isActive: step >= 2,
+                    state: step >= 2 ? StepState.complete : StepState.disabled,
+                    title: const Text(''),
+                    content: SizedBox(
+                      height: height * 0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 32.0, bottom: 32, left: 0, right: 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            PlayerDropdown(
+                                selected: selected,
+                                dropdownHandler: onSelectOpponent),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black12,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text('You',
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w600)),
+                                    SizedBox(width: 18),
+                                    Text(' VS '),
+                                    SizedBox(width: 18),
+                                    Text('???',
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w600))
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  player1Score.toString().padLeft(2, '0'),
                                   style: const TextStyle(
                                       fontSize: 45,
-                                      fontWeight: FontWeight.w600)),
-                            ],
-                          ),
-                        ],
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                const Text(' : ',
+                                    style: TextStyle(fontSize: 40)),
+                                Text(player2Score.toString().padLeft(2, '0'),
+                                    style: const TextStyle(
+                                        fontSize: 45,
+                                        fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ))
-            ],
+                    ))
+              ],
+            ),
           )),
     );
   }
