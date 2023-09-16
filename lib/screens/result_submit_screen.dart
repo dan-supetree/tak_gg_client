@@ -21,6 +21,8 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
   List<PlayerModel> users = [];
 
   final UserController userController = Get.put(UserController());
+  final TextEditingController textController1 = TextEditingController();
+  final TextEditingController textController2 = TextEditingController();
 
   bool isDisabled() {
     if ((player1Score < 11 && player2Score < 11) || selected == null) {
@@ -57,6 +59,9 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
       setState(() {
         player1Score = 0;
         player2Score = 0;
+        step = 0;
+        textController1.clear();
+        textController2.clear();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: const Text(
             'Submit Success',
@@ -139,7 +144,54 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                             player2Score < 11 ||
                             selected == null
                         ? null
-                        : submitResult,
+                        : () => showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title:
+                                    const Center(child: Text('Are you Sure?')),
+                                actions: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 1,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            submitResult();
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(12.0),
+                                            child: Text('Confirm',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(12.0),
+                                            child: Text('Cancel',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                )),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              );
+                            }),
                     child: const Padding(
                       padding: EdgeInsets.all(12.0),
                       child: Text('Submit',
@@ -239,6 +291,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                               ),
                               const SizedBox(height: 20),
                               TextField(
+                                controller: textController1,
                                 keyboardType: TextInputType.number,
                                 inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.digitsOnly,
@@ -290,6 +343,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
                               ),
                               const SizedBox(height: 20),
                               TextField(
+                                controller: textController2,
                                 keyboardType: TextInputType.number,
                                 inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.digitsOnly,
