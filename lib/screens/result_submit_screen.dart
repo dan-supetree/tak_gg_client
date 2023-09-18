@@ -25,7 +25,11 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
   final TextEditingController textController2 = TextEditingController();
 
   bool isDisabled() {
-    if ((player1Score < 11 && player2Score < 11) || selected == null) {
+    if ((player1Score < 11 && player2Score < 11) ||
+        (player1Score == player2Score) ||
+        ((player1Score >= 11 || player2Score >= 11) &&
+            (player1Score - player2Score).abs() != 2) ||
+        selected == null) {
       return true;
     }
 
@@ -140,9 +144,7 @@ class _ResultSubmitScreenState extends State<ResultSubmitScreen> {
               Expanded(
                 flex: 1,
                 child: ElevatedButton(
-                    onPressed: player1Score < 11 ||
-                            player2Score < 11 ||
-                            selected == null
+                    onPressed: isDisabled()
                         ? null
                         : () => showDialog(
                             context: context,
